@@ -3,391 +3,316 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUMIÈRE — Haute Joaillerie</title>
+<title>LUMIÈRE — Modern Jewelry</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5.0.0/300.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5.0.0/400.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5.0.0/400-italic.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/300.css" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/400.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/500.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/600.css" />
 <style>
 :root {
-  --bg: #080808;
-  --bg-card: #111111;
-  --text: #f2f0eb;
-  --text-dim: rgba(242, 240, 235, 0.45);
-  --ruby: #9b1b30;
-  --ruby-hover: #b9243d;
-  --ruby-dim: rgba(155, 27, 48, 0.15);
-  --ruby-glow: rgba(155, 27, 48, 0.4);
+  --bg: #FAFAF9;
+  --surface: #FFFFFF;
+  --ink: #0C0A09;
+  --ink-soft: #57534E;
+  --ink-dim: #A8A29E;
+  --line: #E7E5E4;
+  --ruby: #E11D48;
+  --ruby-soft: #FFE4E6;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   font-family: 'Inter', sans-serif;
   background: var(--bg);
-  color: var(--text);
+  color: var(--ink);
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-.serif { font-family: 'Cormorant Garamond', serif; font-weight: 300; }
 .text-ruby { color: var(--ruby); }
 .bg-ruby { background-color: var(--ruby); }
+.bg-ruby-soft { background-color: var(--ruby-soft); }
+.border-line { border-color: var(--line); }
 .border-ruby { border-color: var(--ruby); }
-.hairline { border-color: rgba(242, 240, 235, 0.08); }
-.hairline-ruby { border-color: var(--ruby-dim); }
 
-/* Animations */
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+/* Typography */
+.tracking-tighter-custom { letter-spacing: -0.03em; }
+.tracking-tight-custom { letter-spacing: -0.02em; }
+
+/* Reveal animations */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1); }
 .reveal.visible { opacity: 1; transform: translateY(0); }
-
-.reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-.reveal-left.visible { opacity: 1; transform: translateX(0); }
-
-.reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-.reveal-right.visible { opacity: 1; transform: translateX(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.3s; }
+.reveal.d4 { transition-delay: 0.4s; }
 
 /* Nav */
-nav { transition: background 0.6s ease, backdrop-filter 0.6s ease, padding 0.6s ease; }
-nav.scrolled { background: rgba(8, 8, 8, 0.85); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid rgba(242, 240, 235, 0.05); }
+nav { transition: background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease; }
+nav.scrolled { background: rgba(250, 250, 249, 0.8); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--line); }
 
-/* Hero */
-.hero-img {
-  background: linear-gradient(180deg, rgba(8,8,8,0.2) 0%, rgba(8,8,8,0.6) 60%, rgba(8,8,8,1) 100%),
-              url('https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/177a4835f-3a24-90a8-9e41-ad33ea8b4338.png') center/cover no-repeat;
+/* Link underline */
+.nav-link { position: relative; }
+.nav-link::after {
+  content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 1px;
+  background: var(--ink); transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.hero-enter { opacity: 0; transform: translateY(30px); animation: heroIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-.hero-enter.d1 { animation-delay: 0.2s; }
-.hero-enter.d2 { animation-delay: 0.6s; }
-.hero-enter.d3 { animation-delay: 1.0s; }
-.hero-enter.d4 { animation-delay: 1.4s; }
-@keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
+.nav-link:hover::after { width: 100%; }
 
-/* Marquee */
-.marquee-wrap { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent); }
-.marquee-track { display: flex; animation: marquee 45s linear infinite; width: max-content; gap: 5rem; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+/* Category card hover reveal */
+.cat-card { overflow: hidden; position: relative; cursor: pointer; }
+.cat-card .cat-img {
+  position: absolute; inset: 0; background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1.05);
+}
+.cat-card:hover .cat-img { opacity: 1; transform: scale(1); }
+.cat-card .cat-content { transition: color 0.5s ease; }
+.cat-card:hover .cat-num { color: var(--ruby); }
+.cat-card:hover .cat-arrow { transform: translateX(6px); }
 
 /* Product card */
-.pcard { overflow: hidden; background: var(--bg-card); transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.8s ease; }
-.pcard:hover { transform: translateY(-6px); box-shadow: 0 20px 40px -20px rgba(155, 27, 48, 0.15); }
-.pcard img { transition: transform 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
-.pcard:hover img { transform: scale(1.06); }
-.pcard .p-info { transform: translateY(10px); opacity: 0.8; transition: all 0.6s ease; }
-.pcard:hover .p-info { transform: translateY(0); opacity: 1; }
+.pcard { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+.pcard:hover { transform: translateY(-4px); }
+.pcard img { transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+.pcard:hover img { transform: scale(1.04); }
 
-/* Category card */
-.cat-card { overflow: hidden; position: relative; }
-.cat-card img { transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.cat-card:hover img { transform: scale(1.08); }
-.cat-card::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 30%, rgba(8,8,8,0.95) 100%);
-  pointer-events: none; transition: opacity 0.6s ease;
-}
-.cat-card:hover::after { opacity: 0.8; }
+/* Marquee */
+.marquee-track { display: flex; animation: marquee 50s linear infinite; width: max-content; gap: 6rem; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* Buttons */
 .btn-ruby {
-  background: var(--ruby); color: var(--text);
+  background: var(--ink); color: var(--bg);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative; overflow: hidden;
 }
-.btn-ruby:hover { background: var(--ruby-hover); transform: translateY(-2px); box-shadow: 0 10px 30px -10px var(--ruby-glow); }
-.btn-ruby::after {
-  content: ''; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
-  transform: skewX(-20deg); transition: left 0.7s ease;
-}
-.btn-ruby:hover::after { left: 120%; }
+.btn-ruby:hover { background: var(--ruby); color: var(--surface); transform: translateY(-2px); }
 
-.btn-line {
-  border: 1px solid rgba(242, 240, 235, 0.2); color: var(--text);
+.btn-ghost {
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--line);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.btn-line:hover { border-color: var(--ruby); color: var(--ruby); }
+.btn-ghost:hover { border-color: var(--ink); }
 
 /* Input */
 .inp {
-  background: transparent; border: none; border-bottom: 1px solid rgba(242, 240, 235, 0.15);
-  transition: border-color 0.4s ease; color: var(--text);
+  background: transparent; border: none; border-bottom: 1px solid var(--line);
+  transition: border-color 0.4s ease; color: var(--ink);
 }
 .inp:focus { outline: none; border-bottom-color: var(--ruby); }
-.inp::placeholder { color: var(--text-dim); }
+.inp::placeholder { color: var(--ink-dim); }
 
 /* Lang switcher */
-.lang-btn { transition: color 0.3s ease, opacity 0.3s ease; opacity: 0.4; }
-.lang-btn:hover { opacity: 0.8; }
-.lang-btn.active { opacity: 1; color: var(--ruby); }
+.lang-btn {
+  transition: all 0.3s ease; opacity: 0.4; font-weight: 400;
+  position: relative; padding-bottom: 2px;
+}
+.lang-btn::after {
+  content: ''; position: absolute; left: 50%; bottom: 0; width: 0; height: 1px;
+  background: var(--ruby); transition: all 0.3s ease; transform: translateX(-50%);
+}
+.lang-btn:hover { opacity: 0.7; }
+.lang-btn.active { opacity: 1; font-weight: 500; }
+.lang-btn.active::after { width: 100%; }
 
 /* Mobile menu */
-.mmenu { transform: translateX(100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-.mmenu.open { transform: translateX(0); }
+.mmenu { transform: translateY(-100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+.mmenu.open { transform: translateY(0); }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--ruby-dim); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--ruby); }
+::-webkit-scrollbar-thumb { background: var(--ink-dim); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink); }
 
-/* Gemstone card */
-.gem-card { border: 1px solid rgba(242, 240, 235, 0.06); transition: all 0.5s ease; }
-.gem-card:hover { border-color: var(--ruby-dim); background: rgba(155, 27, 48, 0.03); }
+/* Horizontal rule animation */
+.hr-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+
+/* Dot pulse */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.8; }
+}
+.pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
 
 @media (max-width: 768px) {
-  .hyphens-auto { overflow-wrap: break-word; }
+  .tracking-tighter-custom { letter-spacing: -0.02em; }
 }
 </style>
 </head>
 <body>
 
 <!-- Nav -->
-<nav id="nav" class="fixed top-0 inset-x-0 z-50 py-6 px-6 md:px-12">
-  <div class="max-w-[1400px] mx-auto flex items-center justify-between">
-    <a href="#" class="serif text-xl md:text-2xl tracking-[0.2em] text-ruby">LUMIÈRE</a>
+<nav id="nav" class="fixed top-0 inset-x-0 z-50 py-5 px-6 md:px-10">
+  <div class="max-w-[1440px] mx-auto flex items-center justify-between">
+    <a href="#" class="flex items-center gap-1.5 font-medium text-[15px] tracking-[0.15em]">
+      LUMIÈRE
+      <span class="w-1.5 h-1.5 rounded-full bg-ruby pulse-dot"></span>
+    </a>
     
-    <div class="hidden lg:flex items-center gap-12 text-[11px] tracking-[0.25em] uppercase">
-      <a href="#collections" class="hover:text-ruby transition-colors duration-500" data-i18n="nav_collections">Collections</a>
-      <a href="#materials" class="hover:text-ruby transition-colors duration-500" data-i18n="nav_materials">Materials</a>
-      <a href="#pieces" class="hover:text-ruby transition-colors duration-500" data-i18n="nav_pieces">Pieces</a>
-      <a href="#craft" class="hover:text-ruby transition-colors duration-500" data-i18n="nav_craft">Craft</a>
-      <a href="#contact" class="hover:text-ruby transition-colors duration-500" data-i18n="nav_contact">Contact</a>
+    <div class="hidden lg:flex items-center gap-10 text-[11px] tracking-[0.15em] uppercase font-light">
+      <a href="#collections" class="nav-link" data-i18n="nav_collections">Collections</a>
+      <a href="#materials" class="nav-link" data-i18n="nav_materials">Materials</a>
+      <a href="#pieces" class="nav-link" data-i18n="nav_pieces">Pieces</a>
+      <a href="#craft" class="nav-link" data-i18n="nav_craft">Atelier</a>
     </div>
 
-    <div class="flex items-center gap-6 md:gap-8">
-      <div class="hidden md:flex items-center gap-4 text-[11px] tracking-[0.2em] uppercase">
+    <div class="flex items-center gap-5 md:gap-7">
+      <div class="hidden md:flex items-center gap-4 text-[11px] tracking-[0.15em] uppercase">
         <button class="lang-btn active" data-lang="en">EN</button>
-        <span class="opacity-20">/</span>
         <button class="lang-btn" data-lang="ru">RU</button>
-        <span class="opacity-20">/</span>
         <button class="lang-btn" data-lang="hy">HY</button>
       </div>
-      <button class="hover:text-ruby transition-colors duration-500" aria-label="Search">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <button class="hover:text-ruby transition-colors" aria-label="Search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
-      <button class="hover:text-ruby transition-colors duration-500 relative" aria-label="Bag" id="bagBtn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-        <span id="bagCount" class="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-ruby text-[#080808] text-[9px] flex items-center justify-center font-normal opacity-0 transition-opacity duration-300">0</span>
+      <button class="hover:text-ruby transition-colors relative" aria-label="Bag" id="bagBtn">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span id="bagCount" class="absolute -top-1.5 -right-2 w-4 h-4 rounded-full bg-ruby text-white text-[9px] flex items-center justify-center font-normal opacity-0 transition-opacity duration-300">0</span>
       </button>
       <button class="lg:hidden hover:text-ruby transition-colors" id="menuToggle" aria-label="Menu">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="18" y2="18"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><line x1="4" x2="20" y1="7" y2="7"/><line x1="4" x2="20" y1="17" y2="17"/></svg>
       </button>
     </div>
   </div>
 </nav>
 
 <!-- Mobile menu -->
-<div id="mmenu" class="mmenu fixed inset-0 z-40 bg-[#080808] flex flex-col items-center justify-center gap-10">
-  <button id="menuClose" class="absolute top-6 right-6 text-ruby">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+<div id="mmenu" class="mmenu fixed inset-x-0 top-0 z-40 bg-[#FAFAF9] border-b border-line flex flex-col items-center pt-24 pb-12 gap-8">
+  <button id="menuClose" class="absolute top-6 right-6">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
   </button>
-  <div class="flex items-center gap-6 text-[11px] tracking-[0.2em] uppercase mb-4">
+  <div class="flex items-center gap-6 text-[11px] tracking-[0.2em] uppercase">
     <button class="lang-btn active" data-lang="en">EN</button>
-    <span class="opacity-20">/</span>
     <button class="lang-btn" data-lang="ru">RU</button>
-    <span class="opacity-20">/</span>
     <button class="lang-btn" data-lang="hy">HY</button>
   </div>
-  <a href="#collections" class="serif text-3xl tracking-widest hover:text-ruby transition-colors" onclick="closeMenu()" data-i18n="nav_collections">Collections</a>
-  <a href="#materials" class="serif text-3xl tracking-widest hover:text-ruby transition-colors" onclick="closeMenu()" data-i18n="nav_materials">Materials</a>
-  <a href="#pieces" class="serif text-3xl tracking-widest hover:text-ruby transition-colors" onclick="closeMenu()" data-i18n="nav_pieces">Pieces</a>
-  <a href="#craft" class="serif text-3xl tracking-widest hover:text-ruby transition-colors" onclick="closeMenu()" data-i18n="nav_craft">Craft</a>
-  <a href="#contact" class="serif text-3xl tracking-widest hover:text-ruby transition-colors" onclick="closeMenu()" data-i18n="nav_contact">Contact</a>
+  <a href="#collections" class="font-light text-2xl tracking-tight hover:text-ruby transition-colors" onclick="closeMenu()" data-i18n="nav_collections">Collections</a>
+  <a href="#materials" class="font-light text-2xl tracking-tight hover:text-ruby transition-colors" onclick="closeMenu()" data-i18n="nav_materials">Materials</a>
+  <a href="#pieces" class="font-light text-2xl tracking-tight hover:text-ruby transition-colors" onclick="closeMenu()" data-i18n="nav_pieces">Pieces</a>
+  <a href="#craft" class="font-light text-2xl tracking-tight hover:text-ruby transition-colors" onclick="closeMenu()" data-i18n="nav_craft">Atelier</a>
 </div>
 
 <!-- Hero -->
-<section class="hero-img min-h-screen flex items-center justify-center relative px-6">
-  <div class="relative z-10 max-w-5xl mx-auto text-center py-32">
-    <p class="hero-enter d1 text-ruby text-[11px] md:text-xs tracking-[0.4em] uppercase mb-8" data-i18n="hero_sub">Est. 1987 · Paris</p>
-    <h1 class="hero-enter d2 serif text-5xl md:text-7xl lg:text-[88px] leading-[0.95] mb-8">
-      <span data-i18n="hero_t1">Crafted in</span><br>
-      <span class="italic text-ruby" data-i18n="hero_t2">Lumière</span>
-    </h1>
-    <p class="hero-enter d3 text-[#f2f0eb]/60 max-w-xl mx-auto text-sm md:text-base leading-relaxed mb-12 font-light" data-i18n="hero_desc">
-      Timeless pieces where light meets artistry. Each jewel tells a story of heritage, precision, and the quiet luxury of being extraordinary.
-    </p>
-    <div class="hero-enter d4 flex flex-col sm:flex-row gap-5 justify-center items-center">
-      <a href="#pieces" class="btn-ruby px-12 py-4 text-[11px] tracking-[0.3em] uppercase font-normal" data-i18n="hero_cta1">Explore Collection</a>
-      <a href="#craft" class="btn-line px-12 py-4 text-[11px] tracking-[0.3em] uppercase font-normal" data-i18n="hero_cta2">Our Story</a>
+<section class="min-h-screen pt-28 pb-16 px-6 md:px-10">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center min-h-[calc(100vh-8rem)]">
+      <div class="lg:col-span-7">
+        <div class="flex items-center gap-3 mb-8 reveal">
+          <span class="w-8 h-px bg-ruby"></span>
+          <span class="text-[10px] tracking-[0.3em] uppercase text-ink-soft" style="color: var(--ink-soft);" data-i18n="hero_label">Since 1987 · Paris</span>
+        </div>
+        <h1 class="font-light tracking-tighter-custom text-[48px] md:text-[72px] lg:text-[96px] leading-[0.95] mb-8 reveal d1">
+          <span data-i18n="hero_t1">Jewelry,</span><br>
+          <span class="italic font-normal" data-i18n="hero_t2">redefined.</span>
+        </h1>
+        <p class="text-[15px] md:text-[17px] font-light leading-relaxed max-w-md mb-12 reveal d2" style="color: var(--ink-soft);" data-i18n="hero_desc">
+          Contemporary pieces for the modern individual. Designed in Paris, crafted with intention, worn without compromise.
+        </p>
+        <div class="flex flex-wrap gap-4 reveal d3">
+          <a href="#pieces" class="btn-ruby px-8 py-4 text-[11px] tracking-[0.2em] uppercase font-medium" data-i18n="hero_cta1">Shop Collection</a>
+          <a href="#craft" class="btn-ghost px-8 py-4 text-[11px] tracking-[0.2em] uppercase font-medium" data-i18n="hero_cta2">Our Process</a>
+        </div>
+      </div>
+      <div class="lg:col-span-5 reveal d2">
+        <div class="relative aspect-[4/5] overflow-hidden">
+          <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1020d4477-8964-47f0-a595-610ae14e190c.png" alt="" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute -bottom-4 -left-4 md:-left-10 bg-white p-5 md:p-6 shadow-sm max-w-[180px] reveal d4">
+          <p class="text-[10px] tracking-[0.2em] uppercase text-ruby mb-1" data-i18n="hero_tag">New Season</p>
+          <p class="font-light text-sm leading-tight" data-i18n="hero_tag_desc">The Solstice Collection</p>
+        </div>
+      </div>
     </div>
-  </div>
-  
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-40">
-    <svg width="16" height="24" viewBox="0 0 16 24" fill="none" class="text-ruby animate-bounce">
-      <rect x="1" y="1" width="14" height="22" rx="7" stroke="currentColor" stroke-width="1"/>
-      <line x1="8" y1="5" x2="8" y2="11" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-    </svg>
   </div>
 </section>
 
 <!-- Marquee -->
-<div class="py-8 border-y hairline overflow-hidden">
-  <div class="marquee-wrap">
-    <div class="marquee-track text-ruby/80 serif text-xl md:text-2xl tracking-[0.15em] italic">
-      <span data-i18n="mq1">Handcrafted in Paris</span>
-      <span class="opacity-30">✦</span>
-      <span data-i18n="mq2">Ethically Sourced Gemstones</span>
-      <span class="opacity-30">✦</span>
-      <span data-i18n="mq3">18K Gold & Platinum</span>
-      <span class="opacity-30">✦</span>
-      <span data-i18n="mq4">Lifetime Warranty</span>
-      <span class="opacity-30">✦</span>
-      <span data-i18n="mq1">Handcrafted in Paris</span>
-      <span class="opacity-30">✦</span>
-      <span data-i18n="mq2">Ethically Sourced Gemstones</span>
-      <span class="opacity-30">✦</span>
-      <span data-i18n="mq3">18K Gold & Platinum</span>
-      <span class="opacity-30">✦</span>
-      <span data-i18n="mq4">Lifetime Warranty</span>
-      <span class="opacity-30">✦</span>
-    </div>
+<div class="py-6 border-y border-line overflow-hidden">
+  <div class="marquee-track text-[11px] tracking-[0.3em] uppercase" style="color: var(--ink-dim);">
+    <span data-i18n="mq1">Ethically Sourced</span>
+    <span class="text-ruby">✦</span>
+    <span data-i18n="mq2">18K Gold & Platinum</span>
+    <span class="text-ruby">✦</span>
+    <span data-i18n="mq3">Handcrafted in Paris</span>
+    <span class="text-ruby">✦</span>
+    <span data-i18n="mq4">Lifetime Warranty</span>
+    <span class="text-ruby">✦</span>
+    <span data-i18n="mq1">Ethically Sourced</span>
+    <span class="text-ruby">✦</span>
+    <span data-i18n="mq2">18K Gold & Platinum</span>
+    <span class="text-ruby">✦</span>
+    <span data-i18n="mq3">Handcrafted in Paris</span>
+    <span class="text-ruby">✦</span>
+    <span data-i18n="mq4">Lifetime Warranty</span>
+    <span class="text-ruby">✦</span>
   </div>
 </div>
 
 <!-- Collections -->
-<section id="collections" class="py-28 md:py-40 px-6 md:px-12">
-  <div class="max-w-[1400px] mx-auto">
-    <div class="text-center mb-20 md:mb-28 reveal">
-      <p class="text-ruby text-[11px] tracking-[0.4em] uppercase mb-5" data-i18n="coll_sub">The Collections</p>
-      <h2 class="serif text-4xl md:text-6xl font-light" data-i18n="coll_title">Three Worlds of Brilliance</h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-      <div class="cat-card aspect-[3/4] reveal">
-        <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/18ce0af21-f459-4051-96e0-183cbaec63a4.png" alt="" class="absolute inset-0 w-full h-full object-cover">
-        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10">
-          <p class="text-ruby/80 text-[10px] tracking-[0.3em] uppercase mb-3" data-i18n="c1_num">01</p>
-          <h3 class="serif text-3xl md:text-4xl mb-3" data-i18n="c1_title">Rings</h3>
-          <p class="text-sm text-[#f2f0eb]/60 font-light" data-i18n="c1_desc">Bands of eternal promise</p>
-          <div class="mt-6 inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-ruby border-b border-ruby/40 pb-1" data-i18n="c1_cta">Discover</div>
-        </div>
-      </div>
-
-      <div class="cat-card aspect-[3/4] reveal" style="transition-delay: 0.1s;">
-        <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1a6a11dc9-c675-4aaf-b150-d9cc0742a3b5.png" alt="" class="absolute inset-0 w-full h-full object-cover">
-        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10">
-          <p class="text-ruby/80 text-[10px] tracking-[0.3em] uppercase mb-3" data-i18n="c2_num">02</p>
-          <h3 class="serif text-3xl md:text-4xl mb-3" data-i18n="c2_title">Earrings</h3>
-          <p class="text-sm text-[#f2f0eb]/60 font-light" data-i18n="c2_desc">Light that listens to you</p>
-          <div class="mt-6 inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-ruby border-b border-ruby/40 pb-1" data-i18n="c2_cta">Discover</div>
-        </div>
-      </div>
-
-      <div class="cat-card aspect-[3/4] reveal" style="transition-delay: 0.2s;">
-        <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1be3b9e57-d3de-9c83-b3ff-8b9a0e345b4d.png" alt="" class="absolute inset-0 w-full h-full object-cover">
-        <div class="absolute bottom-0 left-0 right-0 p-8 md:p-10 z-10">
-          <p class="text-ruby/80 text-[10px] tracking-[0.3em] uppercase mb-3" data-i18n="c3_num">03</p>
-          <h3 class="serif text-3xl md:text-4xl mb-3" data-i18n="c3_title">Bracelets</h3>
-          <p class="text-sm text-[#f2f0eb]/60 font-light" data-i18n="c3_desc">Stories on your wrist</p>
-          <div class="mt-6 inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase text-ruby border-b border-ruby/40 pb-1" data-i18n="c3_cta">Discover</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="max-w-4xl mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-ruby/30 to-transparent"></div></div>
-
-<!-- Materials (New) -->
-<section id="materials" class="py-28 md:py-40 px-6 md:px-12">
-  <div class="max-w-[1400px] mx-auto">
-    <div class="text-center mb-16 md:mb-24 reveal">
-      <p class="text-ruby text-[11px] tracking-[0.4em] uppercase mb-5" data-i18n="mat_sub">The Elements</p>
-      <h2 class="serif text-4xl md:text-6xl font-light" data-i18n="mat_title">Rare & Ethical</h2>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="gem-card p-8 text-center reveal" style="transition-delay: 0s;">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-ruby/10 flex items-center justify-center text-ruby">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M12 22 2 9h20L12 22Z"/><path d="m2 9 4-6h12l4 6"/></svg>
-        </div>
-        <h3 class="serif text-2xl mb-2" data-i18n="gem1">Ruby</h3>
-        <p class="text-xs text-[#f2f0eb]/50 font-light leading-relaxed" data-i18n="gem1_desc">Pigeon blood rubies from Myanmar, selected for their vibrant, passionate hue.</p>
-      </div>
-      <div class="gem-card p-8 text-center reveal" style="transition-delay: 0.1s;">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-ruby/10 flex items-center justify-center text-ruby">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        </div>
-        <h3 class="serif text-2xl mb-2" data-i18n="gem2">Diamond</h3>
-        <p class="text-xs text-[#f2f0eb]/50 font-light leading-relaxed" data-i18n="gem2_desc">Conflict-free, brilliant-cut diamonds of the highest clarity and color grade.</p>
-      </div>
-      <div class="gem-card p-8 text-center reveal" style="transition-delay: 0.2s;">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-ruby/10 flex items-center justify-center text-ruby">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-        </div>
-        <h3 class="serif text-2xl mb-2" data-i18n="gem3">Sapphire</h3>
-        <p class="text-xs text-[#f2f0eb]/50 font-light leading-relaxed" data-i18n="gem3_desc">Deep Ceylon sapphires, revered for their royal blue depth and durability.</p>
-      </div>
-      <div class="gem-card p-8 text-center reveal" style="transition-delay: 0.3s;">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-ruby/10 flex items-center justify-center text-ruby">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
-        </div>
-        <h3 class="serif text-2xl mb-2" data-i18n="gem4">Pearl</h3>
-        <p class="text-xs text-[#f2f0eb]/50 font-light leading-relaxed" data-i18n="gem4_desc">South Sea pearls, cultivated for their luminous orient and perfect symmetry.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="max-w-4xl mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-ruby/30 to-transparent"></div></div>
-
-<!-- Pieces -->
-<section id="pieces" class="py-28 md:py-40 px-6 md:px-12">
-  <div class="max-w-[1400px] mx-auto">
+<section id="collections" class="py-24 md:py-36 px-6 md:px-10">
+  <div class="max-w-[1440px] mx-auto">
     <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-24 reveal gap-6">
       <div>
-        <p class="text-ruby text-[11px] tracking-[0.4em] uppercase mb-5" data-i18n="p_sub">Featured</p>
-        <h2 class="serif text-4xl md:text-6xl font-light" data-i18n="p_title">Signature Pieces</h2>
+        <p class="text-[10px] tracking-[0.3em] uppercase text-ruby mb-4" data-i18n="coll_label">The Collections</p>
+        <h2 class="font-light tracking-tighter-custom text-[36px] md:text-[56px]" data-i18n="coll_title">Designed to last<br>a lifetime.</h2>
       </div>
-      <p class="text-[#f2f0eb]/50 max-w-md font-light text-sm leading-relaxed" data-i18n="p_desc">
-        Each piece is numbered and certified, a one-of-a-kind expression of the atelier's finest work.
+      <p class="font-light text-sm max-w-xs leading-relaxed" style="color: var(--ink-soft);" data-i18n="coll_desc">
+        Three categories. Endless possibilities. Pieces that grow with you.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-      <div class="pcard reveal">
-        <div class="relative aspect-square bg-[#111]">
-          <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/18ce0af21-f459-4051-96e0-183cbaec63a4.png" alt="" class="w-full h-full object-cover">
-          <span class="absolute top-5 left-5 bg-ruby text-[#080808] text-[9px] tracking-[0.25em] uppercase px-3 py-1.5 font-normal" data-i18n="tag_new">New</span>
-        </div>
-        <div class="p-7 md:p-9 p-info">
-          <p class="text-ruby text-[10px] tracking-[0.25em] uppercase mb-3" data-i18n="prod1_cat">Rings</p>
-          <h3 class="serif text-2xl mb-2" data-i18n="prod1_name">Royal Sapphire</h3>
-          <p class="text-[#f2f0eb]/50 text-xs mb-6 font-light leading-relaxed" data-i18n="prod1_desc">18K gold · Ceylon sapphire · VS diamonds</p>
-          <div class="flex items-center justify-between">
-            <span class="serif text-lg text-ruby" data-i18n="prod1_price">€8,400</span>
-            <button class="text-[10px] tracking-[0.25em] uppercase border-b border-[#f2f0eb]/20 pb-1 hover:text-ruby hover:border-ruby transition-all duration-500 add-bag" data-i18n="add_bag">Add to Bag</button>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-[var(--line)] border border-[var(--line)]">
+      <div class="cat-card aspect-[3/4] bg-[var(--bg)]" style="background-image: none;">
+        <div class="cat-img" style="background-image: url('https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/162e79fe8-def5-430b-a0a1-c88919be77de.png');"></div>
+        <div class="relative z-10 p-8 md:p-10 flex flex-col justify-between h-full cat-content">
+          <div>
+            <p class="cat-num text-[10px] tracking-[0.3em] uppercase transition-colors duration-500" style="color: var(--ink-dim);" data-i18n="c1_num">01</p>
+          </div>
+          <div>
+            <h3 class="font-light tracking-tight-custom text-3xl md:text-4xl mb-3" data-i18n="c1_title">Rings</h3>
+            <div class="flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase">
+              <span data-i18n="c1_cta">Explore</span>
+              <svg class="cat-arrow transition-transform duration-500" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="pcard reveal" style="transition-delay: 0.1s;">
-        <div class="relative aspect-square bg-[#111]">
-          <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1a6a11dc9-c675-4aaf-b150-d9cc0742a3b5.png" alt="" class="w-full h-full object-cover">
-        </div>
-        <div class="p-7 md:p-9 p-info">
-          <p class="text-ruby text-[10px] tracking-[0.25em] uppercase mb-3" data-i18n="prod2_cat">Earrings</p>
-          <h3 class="serif text-2xl mb-2" data-i18n="prod2_name">Lune Pearls</h3>
-          <p class="text-[#f2f0eb]/50 text-xs mb-6 font-light leading-relaxed" data-i18n="prod2_desc">South sea pearls · Sterling silver</p>
-          <div class="flex items-center justify-between">
-            <span class="serif text-lg text-ruby" data-i18n="prod2_price">€3,200</span>
-            <button class="text-[10px] tracking-[0.25em] uppercase border-b border-[#f2f0eb]/20 pb-1 hover:text-ruby hover:border-ruby transition-all duration-500 add-bag" data-i18n="add_bag">Add to Bag</button>
+      <div class="cat-card aspect-[3/4] bg-[var(--bg)]">
+        <div class="cat-img" style="background-image: url('https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1f78b2c8d-4c68-4173-b744-1b7e6568a440.png');"></div>
+        <div class="relative z-10 p-8 md:p-10 flex flex-col justify-between h-full cat-content">
+          <div>
+            <p class="cat-num text-[10px] tracking-[0.3em] uppercase transition-colors duration-500" style="color: var(--ink-dim);" data-i18n="c2_num">02</p>
+          </div>
+          <div>
+            <h3 class="font-light tracking-tight-custom text-3xl md:text-4xl mb-3" data-i18n="c2_title">Earrings</h3>
+            <div class="flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase">
+              <span data-i18n="c2_cta">Explore</span>
+              <svg class="cat-arrow transition-transform duration-500" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="pcard reveal" style="transition-delay: 0.2s;">
-        <div class="relative aspect-square bg-[#111]">
-          <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1be3b9e57-d3de-9c83-b3ff-8b9a0e345b4d.png" alt="" class="w-full h-full object-cover">
-          <span class="absolute top-5 left-5 bg-ruby text-[#080808] text-[9px] tracking-[0.25em] uppercase px-3 py-1.5 font-normal" data-i18n="tag_ltd">Limited</span>
-        </div>
-        <div class="p-7 md:p-9 p-info">
-          <p class="text-ruby text-[10px] tracking-[0.25em] uppercase mb-3" data-i18n="prod3_cat">Bracelets</p>
-          <h3 class="serif text-2xl mb-2" data-i18n="prod3_name">Étoile Tennis</h3>
-          <p class="text-[#f2f0eb]/50 text-xs mb-6 font-light leading-relaxed" data-i18n="prod3_desc">Platinum · 12ct brilliant-cut diamonds</p>
-          <div class="flex items-center justify-between">
-            <span class="serif text-lg text-ruby" data-i18n="prod3_price">€24,800</span>
-            <button class="text-[10px] tracking-[0.25em] uppercase border-b border-[#f2f0eb]/20 pb-1 hover:text-ruby hover:border-ruby transition-all duration-500 add-bag" data-i18n="add_bag">Add to Bag</button>
+      <div class="cat-card aspect-[3/4] bg-[var(--bg)]">
+        <div class="cat-img" style="background-image: url('https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1123feffd-b8ec-4d65-adce-ef6a32d7fc00.png');"></div>
+        <div class="relative z-10 p-8 md:p-10 flex flex-col justify-between h-full cat-content">
+          <div>
+            <p class="cat-num text-[10px] tracking-[0.3em] uppercase transition-colors duration-500" style="color: var(--ink-dim);" data-i18n="c3_num">03</p>
+          </div>
+          <div>
+            <h3 class="font-light tracking-tight-custom text-3xl md:text-4xl mb-3" data-i18n="c3_title">Bracelets</h3>
+            <div class="flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase">
+              <span data-i18n="c3_cta">Explore</span>
+              <svg class="cat-arrow transition-transform duration-500" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
           </div>
         </div>
       </div>
@@ -395,46 +320,152 @@ nav.scrolled { background: rgba(8, 8, 8, 0.85); backdrop-filter: blur(24px); -we
   </div>
 </section>
 
-<div class="max-w-4xl mx-auto px-6"><div class="h-px bg-gradient-to-r from-transparent via-ruby/30 to-transparent"></div></div>
+<div class="max-w-[1440px] mx-auto px-6 md:px-10"><div class="hr-line"></div></div>
+
+<!-- Materials -->
+<section id="materials" class="py-24 md:py-36 px-6 md:px-10">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="text-center mb-16 md:mb-24 reveal">
+      <p class="text-[10px] tracking-[0.3em] uppercase text-ruby mb-4" data-i18n="mat_label">The Materials</p>
+      <h2 class="font-light tracking-tighter-custom text-[36px] md:text-[56px]" data-i18n="mat_title">Only the essential.</h2>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[var(--line)] border border-[var(--line)]">
+      <div class="bg-[var(--bg)] p-8 md:p-10 reveal group hover:bg-white transition-colors duration-500">
+        <div class="w-10 h-10 mb-8 rounded-full border border-ruby/30 flex items-center justify-center text-ruby group-hover:bg-ruby group-hover:text-white transition-all duration-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>
+        </div>
+        <h3 class="font-medium text-lg mb-3" data-i18n="gem1">Ruby</h3>
+        <p class="text-xs font-light leading-relaxed" style="color: var(--ink-soft);" data-i18n="gem1_desc">Pigeon blood rubies from Myanmar. Vivid, passionate, and unmistakably bold.</p>
+      </div>
+      <div class="bg-[var(--bg)] p-8 md:p-10 reveal d1 group hover:bg-white transition-colors duration-500">
+        <div class="w-10 h-10 mb-8 rounded-full border border-ruby/30 flex items-center justify-center text-ruby group-hover:bg-ruby group-hover:text-white transition-all duration-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3 class="font-medium text-lg mb-3" data-i18n="gem2">Diamond</h3>
+        <p class="text-xs font-light leading-relaxed" style="color: var(--ink-soft);" data-i18n="gem2_desc">Conflict-free brilliant-cut diamonds. The highest clarity, ethically sourced.</p>
+      </div>
+      <div class="bg-[var(--bg)] p-8 md:p-10 reveal d2 group hover:bg-white transition-colors duration-500">
+        <div class="w-10 h-10 mb-8 rounded-full border border-ruby/30 flex items-center justify-center text-ruby group-hover:bg-ruby group-hover:text-white transition-all duration-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+        </div>
+        <h3 class="font-medium text-lg mb-3" data-i18n="gem3">Sapphire</h3>
+        <p class="text-xs font-light leading-relaxed" style="color: var(--ink-soft);" data-i18n="gem3_desc">Deep Ceylon sapphires. Revered for royal blue depth and everyday durability.</p>
+      </div>
+      <div class="bg-[var(--bg)] p-8 md:p-10 reveal d3 group hover:bg-white transition-colors duration-500">
+        <div class="w-10 h-10 mb-8 rounded-full border border-ruby/30 flex items-center justify-center text-ruby group-hover:bg-ruby group-hover:text-white transition-all duration-500">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3 class="font-medium text-lg mb-3" data-i18n="gem4">Pearl</h3>
+        <p class="text-xs font-light leading-relaxed" style="color: var(--ink-soft);" data-i18n="gem4_desc">South Sea pearls. Cultivated for luminous orient and perfect symmetry.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pieces -->
+<section id="pieces" class="py-24 md:py-36 px-6 md:px-10 bg-white">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-16 md:mb-24 reveal gap-6">
+      <div>
+        <p class="text-[10px] tracking-[0.3em] uppercase text-ruby mb-4" data-i18n="p_label">Featured</p>
+        <h2 class="font-light tracking-tighter-custom text-[36px] md:text-[56px]" data-i18n="p_title">Signature pieces.</h2>
+      </div>
+      <a href="#" class="text-[11px] tracking-[0.2em] uppercase border-b border-[var(--ink)] pb-1 self-start md:self-auto hover:text-ruby hover:border-ruby transition-colors" data-i18n="p_viewall">View All</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+      <div class="pcard reveal">
+        <div class="relative aspect-square bg-[var(--bg)] overflow-hidden mb-6">
+          <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/162e79fe8-def5-430b-a0a1-c88919be77de.png" alt="" class="w-full h-full object-cover">
+          <span class="absolute top-4 left-4 bg-ruby text-white text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 font-medium" data-i18n="tag_new">New</span>
+        </div>
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-[10px] tracking-[0.2em] uppercase text-ruby mb-1.5" data-i18n="prod1_cat">Rings</p>
+            <h3 class="font-medium text-lg mb-1" data-i18n="prod1_name">Solitaire Ring</h3>
+            <p class="text-xs font-light" style="color: var(--ink-dim);" data-i18n="prod1_desc">18K white gold · VS diamond</p>
+          </div>
+          <span class="font-medium text-sm whitespace-nowrap" data-i18n="prod1_price">€8,400</span>
+        </div>
+        <button class="mt-5 w-full btn-ruby py-3 text-[10px] tracking-[0.2em] uppercase font-medium add-bag" data-i18n="add_bag">Add to Bag</button>
+      </div>
+
+      <div class="pcard reveal d1">
+        <div class="relative aspect-square bg-[var(--bg)] overflow-hidden mb-6">
+          <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1f78b2c8d-4c68-4173-b744-1b7e6568a440.png" alt="" class="w-full h-full object-cover">
+        </div>
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-[10px] tracking-[0.2em] uppercase text-ruby mb-1.5" data-i18n="prod2_cat">Earrings</p>
+            <h3 class="font-medium text-lg mb-1" data-i18n="prod2_name">Aurora Hoops</h3>
+            <p class="text-xs font-light" style="color: var(--ink-dim);" data-i18n="prod2_desc">18K yellow gold · Hand-finished</p>
+          </div>
+          <span class="font-medium text-sm whitespace-nowrap" data-i18n="prod2_price">€3,200</span>
+        </div>
+        <button class="mt-5 w-full btn-ruby py-3 text-[10px] tracking-[0.2em] uppercase font-medium add-bag" data-i18n="add_bag">Add to Bag</button>
+      </div>
+
+      <div class="pcard reveal d2">
+        <div class="relative aspect-square bg-[var(--bg)] overflow-hidden mb-6">
+          <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1123feffd-b8ec-4d65-adce-ef6a32d7fc00.png" alt="" class="w-full h-full object-cover">
+          <span class="absolute top-4 left-4 bg-ruby text-white text-[9px] tracking-[0.2em] uppercase px-2.5 py-1 font-medium" data-i18n="tag_ltd">Limited</span>
+        </div>
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-[10px] tracking-[0.2em] uppercase text-ruby mb-1.5" data-i18n="prod3_cat">Bracelets</p>
+            <h3 class="font-medium text-lg mb-1" data-i18n="prod3_name">Link Chain</h3>
+            <p class="text-xs font-light" style="color: var(--ink-dim);" data-i18n="prod3_desc">18K gold · Hand-linked</p>
+          </div>
+          <span class="font-medium text-sm whitespace-nowrap" data-i18n="prod3_price">€4,800</span>
+        </div>
+        <button class="mt-5 w-full btn-ruby py-3 text-[10px] tracking-[0.2em] uppercase font-medium add-bag" data-i18n="add_bag">Add to Bag</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="max-w-[1440px] mx-auto px-6 md:px-10"><div class="hr-line"></div></div>
 
 <!-- Craft -->
-<section id="craft" class="py-28 md:py-40 px-6 md:px-12">
-  <div class="max-w-[1400px] mx-auto">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-      <div class="reveal-left order-2 lg:order-1">
-        <p class="text-ruby text-[11px] tracking-[0.4em] uppercase mb-6" data-i18n="craft_sub">The Atelier</p>
-        <h2 class="serif text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] mb-10">
-          <span data-i18n="craft_t1">Where hands</span><br>
-          <span data-i18n="craft_t2">shape </span><span class="italic text-ruby" data-i18n="craft_t3">light</span>
-        </h2>
-        <p class="text-[#f2f0eb]/60 mb-5 leading-[1.9] font-light text-[15px]" data-i18n="craft_d1">
-          In our Parisian atelier, master artisans bring over a century of savoir-faire to every piece. Each gemstone is selected by hand, each setting perfected over countless hours.
-        </p>
-        <p class="text-[#f2f0eb]/60 mb-14 leading-[1.9] font-light text-[15px]" data-i18n="craft_d2">
-          We believe luxury is not excess — it is the absence of compromise. From the first sketch to the final polish, Lumière exists at the intersection of heritage and wonder.
-        </p>
-        <div class="grid grid-cols-3 gap-8 border-t hairline pt-10">
-          <div>
-            <p class="serif text-3xl md:text-4xl text-ruby mb-2" data-i18n="s1_v">140+</p>
-            <p class="text-[10px] tracking-[0.2em] uppercase text-[#f2f0eb]/40" data-i18n="s1_l">Years of craft</p>
-          </div>
-          <div>
-            <p class="serif text-3xl md:text-4xl text-ruby mb-2" data-i18n="s2_v">24</p>
-            <p class="text-[10px] tracking-[0.2em] uppercase text-[#f2f0eb]/40" data-i18n="s2_l">Master artisans</p>
-          </div>
-          <div>
-            <p class="serif text-3xl md:text-4xl text-ruby mb-2" data-i18n="s3_v">∞</p>
-            <p class="text-[10px] tracking-[0.2em] uppercase text-[#f2f0eb]/40" data-i18n="s3_l">Hours of love</p>
-          </div>
+<section id="craft" class="py-24 md:py-36 px-6 md:px-10">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+      <div class="lg:col-span-5 reveal">
+        <div class="aspect-[4/5] overflow-hidden">
+          <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/18a3a92f5-a238-400b-9f57-1187d7471cf4.png" alt="" class="w-full h-full object-cover">
         </div>
       </div>
-      <div class="reveal-right relative order-1 lg:order-2">
-        <div class="aspect-[4/5] overflow-hidden rounded-sm">
-          <img src="https://image.qwenlm.ai/public_source/b1d8fddf-1e92-41c3-b1a0-3ab2f910aaad/1e0682725-1c20-487d-af56-60bb0abfeeed.png" alt="" class="w-full h-full object-cover">
-        </div>
-        <div class="absolute -bottom-6 -left-4 md:-left-8 bg-ruby text-[#080808] p-6 md:p-8 max-w-[240px] shadow-2xl shadow-ruby/20">
-          <p class="serif text-lg md:text-xl leading-tight italic" data-i18n="quote">"Every stone remembers the hand that shaped it."</p>
-          <p class="text-[10px] tracking-[0.2em] uppercase mt-4 font-normal" data-i18n="quote_author">— Marie Laurent</p>
+      <div class="lg:col-span-7 lg:pl-10 reveal d1">
+        <p class="text-[10px] tracking-[0.3em] uppercase text-ruby mb-6" data-i18n="craft_label">The Atelier</p>
+        <h2 class="font-light tracking-tighter-custom text-[36px] md:text-[56px] leading-[1.05] mb-10">
+          <span data-i18n="craft_t1">Slow made.</span><br>
+          <span class="italic font-normal" data-i18n="craft_t2">Always intentional.</span>
+        </h2>
+        <p class="text-[15px] font-light leading-[1.9] mb-6 max-w-lg" style="color: var(--ink-soft);" data-i18n="craft_d1">
+          In our Parisian atelier, master artisans bring over a century of savoir-faire to every piece. Each gemstone is selected by hand. Each setting perfected over countless hours.
+        </p>
+        <p class="text-[15px] font-light leading-[1.9] mb-12 max-w-lg" style="color: var(--ink-soft);" data-i18n="craft_d2">
+          We believe luxury is not excess. It is the absence of compromise. From sketch to final polish, Lumière exists at the intersection of heritage and wonder.
+        </p>
+        
+        <blockquote class="border-l-2 border-ruby pl-6 mb-12">
+          <p class="font-light tracking-tight text-xl md:text-2xl leading-tight" data-i18n="quote">"Every stone remembers the hand that shaped it."</p>
+          <p class="text-[10px] tracking-[0.2em] uppercase mt-4" style="color: var(--ink-dim);" data-i18n="quote_author">— Marie Laurent, Master Artisan</p>
+        </blockquote>
+
+        <div class="grid grid-cols-3 gap-8 pt-8 border-t border-[var(--line)]">
+          <div>
+            <p class="font-medium text-2xl md:text-3xl tracking-tight mb-1" data-i18n="s1_v">140+</p>
+            <p class="text-[10px] tracking-[0.2em] uppercase" style="color: var(--ink-dim);" data-i18n="s1_l">Years of craft</p>
+          </div>
+          <div>
+            <p class="font-medium text-2xl md:text-3xl tracking-tight mb-1" data-i18n="s2_v">24</p>
+            <p class="text-[10px] tracking-[0.2em] uppercase" style="color: var(--ink-dim);" data-i18n="s2_l">Master artisans</p>
+          </div>
+          <div>
+            <p class="font-medium text-2xl md:text-3xl tracking-tight mb-1" data-i18n="s3_v">∞</p>
+            <p class="text-[10px] tracking-[0.2em] uppercase" style="color: var(--ink-dim);" data-i18n="s3_l">Care in every detail</p>
+          </div>
         </div>
       </div>
     </div>
@@ -442,44 +473,47 @@ nav.scrolled { background: rgba(8, 8, 8, 0.85); backdrop-filter: blur(24px); -we
 </section>
 
 <!-- Newsletter -->
-<section id="contact" class="py-28 md:py-40 px-6 md:px-12 border-y hairline">
+<section id="contact" class="py-24 md:py-36 px-6 md:px-10 bg-white border-t border-[var(--line)]">
   <div class="max-w-2xl mx-auto text-center reveal">
-    <p class="text-ruby text-[11px] tracking-[0.4em] uppercase mb-5" data-i18n="nl_sub">Correspondence</p>
-    <h2 class="serif text-4xl md:text-5xl font-light mb-6" data-i18n="nl_title">Join the Inner Circle</h2>
-    <p class="text-[#f2f0eb]/50 mb-12 font-light text-sm leading-relaxed" data-i18n="nl_desc">Receive private invitations, early access to new collections, and stories from the atelier.</p>
+    <p class="text-[10px] tracking-[0.3em] uppercase text-ruby mb-6" data-i18n="nl_label">Correspondence</p>
+    <h2 class="font-light tracking-tighter-custom text-[36px] md:text-[56px] mb-6" data-i18n="nl_title">Stay in the loop.</h2>
+    <p class="text-[15px] font-light leading-relaxed mb-12 max-w-md mx-auto" style="color: var(--ink-soft);" data-i18n="nl_desc">
+      Private invitations. Early access. Stories from the atelier. No noise.
+    </p>
     <form id="nlForm" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
       <input type="email" required placeholder="" data-i18n-placeholder="nl_ph" class="inp flex-1 py-3 px-1 text-sm">
-      <button type="submit" class="btn-ruby px-8 py-3 text-[11px] tracking-[0.3em] uppercase whitespace-nowrap font-normal" data-i18n="nl_btn">Subscribe</button>
+      <button type="submit" class="btn-ruby px-8 py-3 text-[11px] tracking-[0.2em] uppercase font-medium whitespace-nowrap" data-i18n="nl_btn">Subscribe</button>
     </form>
     <p id="nlMsg" class="text-ruby text-xs mt-6 opacity-0 transition-opacity duration-700" data-i18n="nl_ok">Merci — welcome to Lumière.</p>
   </div>
 </section>
 
-<!-- Expanded Footer -->
-<footer class="bg-[#050505] px-6 md:px-12 py-20 border-t hairline">
-  <div class="max-w-[1400px] mx-auto">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-      <!-- Brand -->
-      <div class="lg:col-span-2">
-        <p class="serif text-2xl tracking-[0.2em] text-ruby mb-6">LUMIÈRE</p>
-        <p class="text-[12px] text-[#f2f0eb]/40 leading-relaxed font-light mb-8 max-w-xs" data-i18n="f_addr">Haute joaillerie since 1987. 24 Rue de la Paix, Paris 75002.</p>
-        <div class="flex gap-4">
-          <a href="#" class="w-10 h-10 rounded-full border hairline flex items-center justify-center text-[#f2f0eb]/50 hover:text-ruby hover:border-ruby transition-all duration-500">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+<!-- Footer -->
+<footer class="bg-[var(--ink)] text-[var(--bg)] px-6 md:px-10 pt-24 pb-8">
+  <div class="max-w-[1440px] mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-10 md:gap-12 mb-20">
+      <div class="col-span-2 md:col-span-2">
+        <p class="flex items-center gap-1.5 font-medium text-xl tracking-[0.15em] mb-6">
+          LUMIÈRE
+          <span class="w-1.5 h-1.5 rounded-full bg-ruby pulse-dot"></span>
+        </p>
+        <p class="text-[12px] font-light leading-relaxed mb-8 max-w-xs" style="color: rgba(250, 250, 249, 0.5);" data-i18n="f_addr">Contemporary jewelry, designed in Paris. Worn worldwide.</p>
+        <div class="flex gap-3">
+          <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-ruby hover:text-ruby transition-all duration-500">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
           </a>
-          <a href="#" class="w-10 h-10 rounded-full border hairline flex items-center justify-center text-[#f2f0eb]/50 hover:text-ruby hover:border-ruby transition-all duration-500">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm-1-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm5 7h-2v-3c0-.55-.45-1-1-1s-1 .45-1 1v3h-2v-6h2v1.1c.45-.65 1.2-1.1 2-1.1 1.65 0 3 1.35 3 3v3z"/></svg>
+          <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-ruby hover:text-ruby transition-all duration-500">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
           </a>
-          <a href="#" class="w-10 h-10 rounded-full border hairline flex items-center justify-center text-[#f2f0eb]/50 hover:text-ruby hover:border-ruby transition-all duration-500">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+          <a href="#" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-ruby hover:text-ruby transition-all duration-500">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
         </div>
       </div>
 
-      <!-- Shop -->
       <div>
         <h4 class="text-[10px] tracking-[0.3em] uppercase text-ruby mb-6" data-i18n="f_shop">Shop</h4>
-        <ul class="space-y-3 text-[12px] text-[#f2f0eb]/50 font-light">
+        <ul class="space-y-3 text-[12px] font-light" style="color: rgba(250, 250, 249, 0.6);">
           <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_rings">Rings</a></li>
           <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_earrings">Earrings</a></li>
           <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_necklaces">Necklaces</a></li>
@@ -488,10 +522,9 @@ nav.scrolled { background: rgba(8, 8, 8, 0.85); backdrop-filter: blur(24px); -we
         </ul>
       </div>
 
-      <!-- Maison -->
       <div>
         <h4 class="text-[10px] tracking-[0.3em] uppercase text-ruby mb-6" data-i18n="f_maison">Maison</h4>
-        <ul class="space-y-3 text-[12px] text-[#f2f0eb]/50 font-light">
+        <ul class="space-y-3 text-[12px] font-light" style="color: rgba(250, 250, 249, 0.6);">
           <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_story">Our Story</a></li>
           <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_atelier">Atelier</a></li>
           <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_sust">Sustainability</a></li>
@@ -500,148 +533,153 @@ nav.scrolled { background: rgba(8, 8, 8, 0.85); backdrop-filter: blur(24px); -we
         </ul>
       </div>
 
-      <!-- Client Care -->
       <div>
         <h4 class="text-[10px] tracking-[0.3em] uppercase text-ruby mb-6" data-i18n="f_care">Client Care</h4>
-        <ul class="space-y-3 text-[12px] text-[#f2f0eb]/50 font-light">
-          <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_contact">Contact Us</a></li>
-          <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_ship">Shipping & Returns</a></li>
+        <ul class="space-y-3 text-[12px] font-light" style="color: rgba(250, 250, 249, 0.6);">
+          <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_contact">Contact</a></li>
+          <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_ship">Shipping</a></li>
           <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_faq">FAQ</a></li>
           <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_care_guide">Care Guide</a></li>
-          <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_appt">Book Appointment</a></li>
+          <li><a href="#" class="hover:text-ruby transition-colors duration-500" data-i18n="f_appt">Appointments</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="border-t hairline pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <p class="text-[10px] text-[#f2f0eb]/30" data-i18n="f_copy">© 2026 Lumière Joaillerie. All rights reserved.</p>
-      <div class="flex gap-6 text-[10px] text-[#f2f0eb]/30">
-        <a href="#" class="hover:text-ruby transition-colors" data-i18n="f_privacy">Privacy Policy</a>
-        <a href="#" class="hover:text-ruby transition-colors" data-i18n="f_terms">Terms of Service</a>
-        <a href="#" class="hover:text-ruby transition-colors" data-i18n="f_cookies">Cookie Settings</a>
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-[10px]" style="color: rgba(250, 250, 249, 0.3);" data-i18n="f_copy">© 2026 Lumière. All rights reserved.</p>
+      <div class="flex gap-6 text-[10px]" style="color: rgba(250, 250, 249, 0.3);">
+        <a href="#" class="hover:text-ruby transition-colors" data-i18n="f_privacy">Privacy</a>
+        <a href="#" class="hover:text-ruby transition-colors" data-i18n="f_terms">Terms</a>
+        <a href="#" class="hover:text-ruby transition-colors" data-i18n="f_cookies">Cookies</a>
       </div>
     </div>
     <div class="mt-8 text-center">
-       <p class="text-[10px] text-[#f2f0eb]/20 tracking-widest uppercase">Designed with passion in Paris</p>
-    </div.
+      <p class="text-[10px] tracking-[0.3em] uppercase" style="color: rgba(250, 250, 249, 0.2);" data-i18n="f_made">Designed in Paris · Crafted with intention</p>
+    </div>
   </div>
 </footer>
 
 <script>
 const dict = {
   en: {
-    nav_collections: "Collections", nav_materials: "Materials", nav_pieces: "Pieces", nav_craft: "Craft", nav_contact: "Contact",
-    hero_sub: "Est. 1987 · Paris", hero_t1: "Crafted in", hero_t2: "Lumière",
-    hero_desc: "Timeless pieces where light meets artistry. Each jewel tells a story of heritage, precision, and the quiet luxury of being extraordinary.",
-    hero_cta1: "Explore Collection", hero_cta2: "Our Story",
-    mq1: "Handcrafted in Paris", mq2: "Ethically Sourced Gemstones", mq3: "18K Gold & Platinum", mq4: "Lifetime Warranty",
-    coll_sub: "The Collections", coll_title: "Three Worlds of Brilliance",
-    c1_num: "01", c1_title: "Rings", c1_desc: "Bands of eternal promise", c1_cta: "Discover",
-    c2_num: "02", c2_title: "Earrings", c2_desc: "Light that listens to you", c2_cta: "Discover",
-    c3_num: "03", c3_title: "Bracelets", c3_desc: "Stories on your wrist", c3_cta: "Discover",
-    mat_sub: "The Elements", mat_title: "Rare & Ethical",
-    gem1: "Ruby", gem1_desc: "Pigeon blood rubies from Myanmar, selected for their vibrant, passionate hue.",
-    gem2: "Diamond", gem2_desc: "Conflict-free, brilliant-cut diamonds of the highest clarity and color grade.",
-    gem3: "Sapphire", gem3_desc: "Deep Ceylon sapphires, revered for their royal blue depth and durability.",
-    gem4: "Pearl", gem4_desc: "South Sea pearls, cultivated for their luminous orient and perfect symmetry.",
-    p_sub: "Featured", p_title: "Signature Pieces",
-    p_desc: "Each piece is numbered and certified, a one-of-a-kind expression of the atelier's finest work.",
-    prod1_cat: "Rings", prod1_name: "Royal Sapphire", prod1_desc: "18K gold · Ceylon sapphire · VS diamonds", prod1_price: "€8,400",
-    prod2_cat: "Earrings", prod2_name: "Lune Pearls", prod2_desc: "South sea pearls · Sterling silver", prod2_price: "€3,200",
-    prod3_cat: "Bracelets", prod3_name: "Étoile Tennis", prod3_desc: "Platinum · 12ct brilliant-cut diamonds", prod3_price: "€24,800",
+    nav_collections: "Collections", nav_materials: "Materials", nav_pieces: "Pieces", nav_craft: "Atelier",
+    hero_label: "Since 1987 · Paris", hero_t1: "Jewelry,", hero_t2: "redefined.",
+    hero_desc: "Contemporary pieces for the modern individual. Designed in Paris, crafted with intention, worn without compromise.",
+    hero_cta1: "Shop Collection", hero_cta2: "Our Process",
+    hero_tag: "New Season", hero_tag_desc: "The Solstice Collection",
+    mq1: "Ethically Sourced", mq2: "18K Gold & Platinum", mq3: "Handcrafted in Paris", mq4: "Lifetime Warranty",
+    coll_label: "The Collections", coll_title: "Designed to last<br>a lifetime.",
+    coll_desc: "Three categories. Endless possibilities. Pieces that grow with you.",
+    c1_num: "01", c1_title: "Rings", c1_cta: "Explore",
+    c2_num: "02", c2_title: "Earrings", c2_cta: "Explore",
+    c3_num: "03", c3_title: "Bracelets", c3_cta: "Explore",
+    mat_label: "The Materials", mat_title: "Only the essential.",
+    gem1: "Ruby", gem1_desc: "Pigeon blood rubies from Myanmar. Vivid, passionate, and unmistakably bold.",
+    gem2: "Diamond", gem2_desc: "Conflict-free brilliant-cut diamonds. The highest clarity, ethically sourced.",
+    gem3: "Sapphire", gem3_desc: "Deep Ceylon sapphires. Revered for royal blue depth and everyday durability.",
+    gem4: "Pearl", gem4_desc: "South Sea pearls. Cultivated for luminous orient and perfect symmetry.",
+    p_label: "Featured", p_title: "Signature pieces.", p_viewall: "View All",
+    prod1_cat: "Rings", prod1_name: "Solitaire Ring", prod1_desc: "18K white gold · VS diamond", prod1_price: "€8,400",
+    prod2_cat: "Earrings", prod2_name: "Aurora Hoops", prod2_desc: "18K yellow gold · Hand-finished", prod2_price: "€3,200",
+    prod3_cat: "Bracelets", prod3_name: "Link Chain", prod3_desc: "18K gold · Hand-linked", prod3_price: "€4,800",
     add_bag: "Add to Bag", added: "Added",
     tag_new: "New", tag_ltd: "Limited",
-    craft_sub: "The Atelier", craft_t1: "Where hands", craft_t2: "shape ", craft_t3: "light",
-    craft_d1: "In our Parisian atelier, master artisans bring over a century of savoir-faire to every piece. Each gemstone is selected by hand, each setting perfected over countless hours.",
-    craft_d2: "We believe luxury is not excess — it is the absence of compromise. From the first sketch to the final polish, Lumière exists at the intersection of heritage and wonder.",
-    s1_v: "140+", s1_l: "Years of craft", s2_v: "24", s2_l: "Master artisans", s3_v: "∞", s3_l: "Hours of love",
-    quote: "\"Every stone remembers the hand that shaped it.\"", quote_author: "— Marie Laurent",
-    nl_sub: "Correspondence", nl_title: "Join the Inner Circle",
-    nl_desc: "Receive private invitations, early access to new collections, and stories from the atelier.",
-    nl_ph: "Your email address", nl_btn: "Subscribe", nl_ok: "Merci — welcome to Lumière.",
-    f_addr: "Haute joaillerie since 1987. 24 Rue de la Paix, Paris 75002.",
+    craft_label: "The Atelier", craft_t1: "Slow made.", craft_t2: "Always intentional.",
+    craft_d1: "In our Parisian atelier, master artisans bring over a century of savoir-faire to every piece. Each gemstone is selected by hand. Each setting perfected over countless hours.",
+    craft_d2: "We believe luxury is not excess. It is the absence of compromise. From sketch to final polish, Lumière exists at the intersection of heritage and wonder.",
+    quote: "\"Every stone remembers the hand that shaped it.\"", quote_author: "— Marie Laurent, Master Artisan",
+    s1_v: "140+", s1_l: "Years of craft", s2_v: "24", s2_l: "Master artisans", s3_v: "∞", s3_l: "Care in every detail",
+    nl_label: "Correspondence", nl_title: "Stay in the loop.",
+    nl_desc: "Private invitations. Early access. Stories from the atelier. No noise.",
+    nl_ph: "Your email", nl_btn: "Subscribe", nl_ok: "Merci — welcome to Lumière.",
+    f_addr: "Contemporary jewelry, designed in Paris. Worn worldwide.",
     f_shop: "Shop", f_maison: "Maison", f_care: "Client Care",
     f_rings: "Rings", f_earrings: "Earrings", f_necklaces: "Necklaces", f_bracelets: "Bracelets", f_new: "New Arrivals",
     f_story: "Our Story", f_atelier: "Atelier", f_sust: "Sustainability", f_careers: "Careers", f_press: "Press",
-    f_contact: "Contact Us", f_ship: "Shipping & Returns", f_faq: "FAQ", f_care_guide: "Care Guide", f_appt: "Book Appointment",
-    f_copy: "© 2026 Lumière Joaillerie. All rights reserved.",
-    f_privacy: "Privacy Policy", f_terms: "Terms of Service", f_cookies: "Cookie Settings"
+    f_contact: "Contact", f_ship: "Shipping", f_faq: "FAQ", f_care_guide: "Care Guide", f_appt: "Appointments",
+    f_copy: "© 2026 Lumière. All rights reserved.",
+    f_privacy: "Privacy", f_terms: "Terms", f_cookies: "Cookies",
+    f_made: "Designed in Paris · Crafted with intention"
   },
   ru: {
-    nav_collections: "Коллекции", nav_materials: "Материалы", nav_pieces: "Изделия", nav_craft: "Мастерская", nav_contact: "Контакты",
-    hero_sub: "Осн. 1987 · Париж", hero_t1: "Создано в", hero_t2: "Lumière",
-    hero_desc: "Вневременные изделия, где свет встречается с искусством. Каждое украшение рассказывает историю наследия, точности и тихой роскоши быть исключительным.",
-    hero_cta1: "Смотреть коллекцию", hero_cta2: "Наша история",
-    mq1: "Ручная работа в Париже", mq2: "Этичные камни", mq3: "Золото 18К и платина", mq4: "Пожизненная гарантия",
-    coll_sub: "Коллекции", coll_title: "Три мира блеска",
-    c1_num: "01", c1_title: "Кольца", c1_desc: "Кольца вечных обещаний", c1_cta: "Открыть",
-    c2_num: "02", c2_title: "Серьги", c2_desc: "Свет, который слушает вас", c2_cta: "Открыть",
-    c3_num: "03", c3_title: "Браслеты", c3_desc: "Истории на вашем запястье", c3_cta: "Открыть",
-    mat_sub: "Элементы", mat_title: "Редкие и этичные",
-    gem1: "Рубин", gem1_desc: "Рубины «голубиная кровь» из Мьянмы, отобранные за их яркий, страстный оттенок.",
-    gem2: "Алмаз", gem2_desc: "Бесконфликтные бриллианты высшей чистоты и цвета.",
-    gem3: "Сапфир", gem3_desc: "Глубокие цейлонские сапфиры, почитаемые за их королевскую синеву и прочность.",
-    gem4: "Жемчуг", gem4_desc: "Жемчуг южных морей, выращенный для его luminous orient и идеальной симметрии.",
-    p_sub: "Избранное", p_title: "Фирменные изделия",
-    p_desc: "Каждое изделие пронумеровано и сертифицировано — уникальное воплощение лучшего труда мастерской.",
-    prod1_cat: "Кольца", prod1_name: "Королевский Сапфир", prod1_desc: "Золото 18К · Цейлонский сапфир · Бриллианты VS", prod1_price: "€8 400",
-    prod2_cat: "Серьги", prod2_name: "Жемчуг Люн", prod2_desc: "Жемчуг южных морей · Серебро 925", prod2_price: "€3 200",
-    prod3_cat: "Браслеты", prod3_name: "Этуаль Теннис", prod3_desc: "Платина · 12 карат бриллиантов", prod3_price: "€24 800",
+    nav_collections: "Коллекции", nav_materials: "Материалы", nav_pieces: "Изделия", nav_craft: "Ателье",
+    hero_label: "С 1987 · Париж", hero_t1: "Украшения,", hero_t2: "переосмысленные.",
+    hero_desc: "Современные украшения для современного человека. Созданы в Париже, сделаны с намерением, носятся без компромиссов.",
+    hero_cta1: "Смотреть коллекцию", hero_cta2: "Наш процесс",
+    hero_tag: "Новый сезон", hero_tag_desc: "Коллекция Солнцестояния",
+    mq1: "Этичные материалы", mq2: "18К золото и платина", mq3: "Ручная работа в Париже", mq4: "Пожизненная гарантия",
+    coll_label: "Коллекции", coll_title: "Созданы служить<br>всю жизнь.",
+    coll_desc: "Три категории. Бесконечные возможности. Украшения, которые растут вместе с вами.",
+    c1_num: "01", c1_title: "Кольца", c1_cta: "Открыть",
+    c2_num: "02", c2_title: "Серьги", c2_cta: "Открыть",
+    c3_num: "03", c3_title: "Браслеты", c3_cta: "Открыть",
+    mat_label: "Материалы", mat_title: "Только необходимое.",
+    gem1: "Рубин", gem1_desc: "Рубины «голубиная кровь» из Мьянмы. Яркие, страстные, бескомпромиссно смелые.",
+    gem2: "Алмаз", gem2_desc: "Бесконфликтные бриллианты. Высшая чистота, этичное происхождение.",
+    gem3: "Сапфир", gem3_desc: "Глубокие цейлонские сапфиры. Королевская синева и повседневная прочность.",
+    gem4: "Жемчуг", gem4_desc: "Жемчуг Южных морей. Выращен для сияния и идеальной симметрии.",
+    p_label: "Избранное", p_title: "Фирменные изделия.", p_viewall: "Смотреть все",
+    prod1_cat: "Кольца", prod1_name: "Кольцо Солитер", prod1_desc: "18К белое золото · VS бриллиант", prod1_price: "€8 400",
+    prod2_cat: "Серьги", prod2_name: "Серьги Аврора", prod2_desc: "18К жёлтое золото · Ручная отделка", prod2_price: "€3 200",
+    prod3_cat: "Браслеты", prod3_name: "Цепочка Линк", prod3_desc: "18К золото · Ручное плетение", prod3_price: "€4 800",
     add_bag: "В корзину", added: "Добавлено",
     tag_new: "Новинка", tag_ltd: "Лимитировано",
-    craft_sub: "Мастерская", craft_t1: "Где руки", craft_t2: "формируют ", craft_t3: "свет",
-    craft_d1: "В нашей парижской мастерской мастера привносят более чем вековое мастерство в каждое изделие. Каждый камень отобран вручную, каждая оправа доведена до совершенства за бесчисленные часы.",
-    craft_d2: "Мы верим, что роскошь — это не избыток, а отсутствие компромиссов. От первого эскиза до финальной полировки Lumière существует на пересечении наследия и чуда.",
-    s1_v: "140+", s1_l: "Лет мастерства", s2_v: "24", s2_l: "Мастера-ремесленника", s3_v: "∞", s3_l: "Часов любви",
-    quote: "«Каждый камень помнит руку, которая его создала»", quote_author: "— Мари Лоран",
-    nl_sub: "Корреспонденция", nl_title: "Вступите в ближний круг",
-    nl_desc: "Получайте частные приглашения, ранний доступ к новым коллекциям и истории из мастерской.",
+    craft_label: "Ателье", craft_t1: "Медленное создание.", craft_t2: "Всегда осмысленно.",
+    craft_d1: "В нашем парижском ателье мастера привносят более чем вековое мастерство в каждое изделие. Каждый камень отобран вручную. Каждая оправа доведена до совершенства.",
+    craft_d2: "Мы верим, что роскошь — это не избыток. Это отсутствие компромиссов. От эскиза до финальной полировки Lumière существует на пересечении наследия и чуда.",
+    quote: "«Каждый камень помнит руку, которая его создала»", quote_author: "— Мари Лоран, мастер-ремесленник",
+    s1_v: "140+", s1_l: "Лет мастерства", s2_v: "24", s2_l: "Мастера", s3_v: "∞", s3_l: "Внимание к деталям",
+    nl_label: "Корреспонденция", nl_title: "Оставайтесь в курсе.",
+    nl_desc: "Частные приглашения. Ранний доступ. Истории из ателье. Без шума.",
     nl_ph: "Ваш email", nl_btn: "Подписаться", nl_ok: "Мерси — добро пожаловать в Lumière.",
-    f_addr: "Haute joaillerie с 1987 года. 24 Rue de la Paix, Париж 75002.",
-    f_shop: "Магазин", f_maison: "Дом", f_care: "Клиентский сервис",
+    f_addr: "Современные украшения, созданные в Париже. Носятся по всему миру.",
+    f_shop: "Магазин", f_maison: "Дом", f_care: "Сервис",
     f_rings: "Кольца", f_earrings: "Серьги", f_necklaces: "Колье", f_bracelets: "Браслеты", f_new: "Новинки",
-    f_story: "Наша история", f_atelier: "Мастерская", f_sust: "Устойчивость", f_careers: "Карьера", f_press: "Пресса",
-    f_contact: "Связаться с нами", f_ship: "Доставка и возврат", f_faq: "FAQ", f_care_guide: "Уход за украшениями", f_appt: "Записаться на прием",
-    f_copy: "© 2026 Lumière Joaillerie. Все права защищены.",
-    f_privacy: "Политика конфиденциальности", f_terms: "Условия использования", f_cookies: "Настройки cookies"
+    f_story: "История", f_atelier: "Ателье", f_sust: "Устойчивость", f_careers: "Карьера", f_press: "Пресса",
+    f_contact: "Контакт", f_ship: "Доставка", f_faq: "FAQ", f_care_guide: "Уход", f_appt: "Запись",
+    f_copy: "© 2026 Lumière. Все права защищены.",
+    f_privacy: "Приватность", f_terms: "Условия", f_cookies: "Cookies",
+    f_made: "Создано в Париже · Сделано с намерением"
   },
   hy: {
-    nav_collections: "Հավաքածուներ", nav_materials: "Նյութեր", nav_pieces: "Ստեղծագործություններ", nav_craft: "Արվեստանոց", nav_contact: "Կապ",
-    hero_sub: "Հիմն. 1987 · Փարիզ", hero_t1: "Ստեղծված", hero_t2: "Lumière-ում",
-    hero_desc: "Ժամանակակից զարդեր, որտեղ լույսը հանդիպում է արվեստին։ Յուրաքանչյուր զարդ պատմում է ժառանգության, ճշգրտության և բացառիկ լինելու անշշուկ շքեղության մասին։",
-    hero_cta1: "Դիտել հավաքածուն", hero_cta2: "Մեր պատմությունը",
-    mq1: "Ձեռքի աշխատանք Փարիզում", mq2: "Էթիկապես մաքուր քարեր", mq3: "18K ոսկի և պլատին", mq4: "Ցմահ երաշխիք",
-    coll_sub: "Հավաքածուներ", coll_title: "Փայլի երեք աշխարհներ",
-    c1_num: "01", c1_title: "Մատանիներ", c1_desc: "Հավերժական խոստումների մատանիներ", c1_cta: "Բացել",
-    c2_num: "02", c2_title: "Ականջօղեր", c2_desc: "Լույս, որը լսում է ձեզ", c2_cta: "Բացել",
-    c3_num: "03", c3_title: "Ապարանջաններ", c3_desc: "Պատմություններ ձեր դաստակին", c3_cta: "Բացել",
-    mat_sub: "Տարրեր", mat_title: "Հազվագյուտ և էթիկական",
-    gem1: "Ռուբին", gem1_desc: "Մյանմայի «աղավնու արյուն» ռուբիններ՝ ընտրված իրենց վառ, կրքոտ երանգի համար:",
-    gem2: "Ադամանդ", gem2_desc: "Կոնֆլիկտներից զերծ, բարձրագույն մաքրության և գույնի ադամանդներ:",
-    gem3: "Շափյուղա", gem3_desc: "Խորը ցեյլոնյան շափյուղաներ՝ պաշտված իրենց թագավորական կապույտի և դիմացկունության համար:",
-    gem4: "Մարգարիտ", gem4_desc: "Հարավային ծովի մարգարիտներ՝ մշակված իրենց լուսավոր փայլի և կատարյալ համաչափության համար:",
-    p_sub: "Ընտրյալ", p_title: "Ֆիրմային ստեղծագործություններ",
-    p_desc: "Յուրաքանչյուր ստեղծագործություն համարակալված և հավաստագրված է՝ արվեստանոցի լավագույն աշխատանքի եզակի արտահայտություն։",
-    prod1_cat: "Մատանիներ", prod1_name: "Թագավորական շափյուղա", prod1_desc: "18K ոսկի · Ցեյլոնյան շափյուղա · VS ադամանդներ", prod1_price: "€8 400",
-    prod2_cat: "Ականջօղեր", prod2_name: "Լյուն մարգարիտներ", prod2_desc: "Հարավային ծովի մարգարիտներ · Արծաթ 925", prod2_price: "€3 200",
-    prod3_cat: "Ապարանջաններ", prod3_name: "Էտուալ Թենիս", prod3_desc: "Պլատին · 12 կարատանոց ադամանդներ", prod3_price: "€24 800",
+    nav_collections: "Հավաքածուներ", nav_materials: "Նյութեր", nav_pieces: "Ստեղծագործություններ", nav_craft: "Արվեստանոց",
+    hero_label: "1987-ից · Փարիզ", hero_t1: "արդեր,", hero_t2: "վերասահմանված:",
+    hero_desc: "Ժամանակակից արդեր ժամանակակից մարդու համար։ Ստեղծված Փարիզում, պատրաստված մտադրությամբ, կրված առանց զիջումների։",
+    hero_cta1: "Դիտել հավաքածուն", hero_cta2: "եր գործընթացը",
+    hero_tag: "Նոր եղանակ", hero_tag_desc: "Արևադարձի հավաքածուն",
+    mq1: "Էթիկական նյութեր", mq2: "18K ոսկի և պլատին", mq3: "Ձեռքի աշխատանք Փարիզում", mq4: "Ցմահ երաշխիք",
+    coll_label: "Հավաքածուներ", coll_title: "Ստեղծված ծառայելու<br>ամբողջ կյանքում:",
+    coll_desc: "Երեք կատեգորիա: Անվերջ հնարավորություններ: Զարդեր, որոնք աում են ձեզ հետ:",
+    c1_num: "01", c1_title: "Մատանիներ", c1_cta: "Բացել",
+    c2_num: "02", c2_title: "Ականջօղեր", c2_cta: "Բացել",
+    c3_num: "03", c3_title: "Ապարանջաններ", c3_cta: "Բացել",
+    mat_label: "Նյութեր", mat_title: "Միայն անհրաեշտը:",
+    gem1: "Ռուբին", gem1_desc: "յանմայի «աղավնու արյուն» ռուբիններ: Պայծառ, կրքոտ, անկեղծ համարձակ:",
+    gem2: "Ադամանդ", gem2_desc: "Կոնֆլիկտներից զերծ ադամանդներ: Բարձրագույն մաքրություն, էթիկական:",
+    gem3: "Շափյուղա", gem3_desc: "Խորը ցեյլոնյան շափյուղաներ: Թագավորական կապույտ և ամենօրյա դիմացկունություն:",
+    gem4: "Մարգարիտ", gem4_desc: "Հարավային ծովի մարգարիտներ: Մշակված փայլի և կատարյալ համաչափության համար:",
+    p_label: "նտրյալ", p_title: "Ֆիրմային ստեղծագործություններ:", p_viewall: "Դիտել բոլորը",
+    prod1_cat: "Մատանիներ", prod1_name: "Սոլիտեր մատանի", prod1_desc: "18K սպիտակ ոսկի · VS ադամանդ", prod1_price: "€8 400",
+    prod2_cat: "Ականջօղեր", prod2_name: "Ավրորա օղեր", prod2_desc: "18K դեղին ոսկի · Ձեռքի մշակում", prod2_price: "€3 200",
+    prod3_cat: "Ապարանջաններ", prod3_name: "Շղթա Լինկ", prod3_desc: "18K ոսկի · Ձեռքի հյուսում", prod3_price: "€4 800",
     add_bag: "Զամբյուղ", added: "Ավելացված",
     tag_new: "Նոր", tag_ltd: "Սահմանափակ",
-    craft_sub: "Արվեստանոց", craft_t1: "Որտեղ ձեռքերը", craft_t2: "ձևավորում են ", craft_t3: "լույսը",
-    craft_d1: "Մեր Փարիզյան արվեստանոցում վարպետները յուրաքանչյուր ստեղծագործության մեջ ներդնում են ավելի քան դարավոր հմտություն։ Յուրաքանչյուր քար ընտրվում է ձեռքով, յուրաքանչյուր դրվագ կատարելագործվում է անհամար ժամերի ընթացքում։",
-    craft_d2: "Մենք հավատում ենք, որ շքեղությունը ոչ թե ավելցուկ է, այլ զիջումների բացակայություն։ Առաջին էսքիզից մինչև վերջին փայլեցումը Lumière-ը գոյություն ունի ժառանգության և հրաշքի հատման կետում։",
-    s1_v: "140+", s1_l: "Տարվա արհեստ", s2_v: "24", s2_l: "Վարպետ արհեստավոր", s3_v: "∞", s3_l: "Ժամեր սիրով",
-    quote: "«Յուրաքանչյուր քար հիշում է այն ձեռքը, որը ձևավորել է այն»", quote_author: "— Մարի Լորան",
-    nl_sub: "Նամակագրություն", nl_title: "Միացեք ներքին շրջանակին",
-    nl_desc: "Ստացեք մասնավոր հրավերներ, վաղ հասանելիություն նոր հավաքածուներին և պատմություններ արվեստանոցից։",
-    nl_ph: "Ձեր էլ. հասցեն", nl_btn: "Բաժանորդագրվել", nl_ok: "Մերսի՝ բարի գալուստ Lumière:",
-    f_addr: "Haute joaillerie 1987-ից: 24 Rue de la Paix, Փարիզ 75002:",
-    f_shop: "Խանութ", f_maison: "Տուն", f_care: "Հաճախորդների սպասարկում",
-    f_rings: "Մատանիներ", f_earrings: "Ականջօղեր", f_necklaces: "Վզնոցներ", f_bracelets: "Ապարանջաններ", f_new: "Նոր ժամանումներ",
-    f_story: "Մեր պատմությունը", f_atelier: "Արվեստանոց", f_sust: "Կայունություն", f_careers: "Կարիերա", f_press: "Մամուլ",
-    f_contact: "Կապ մեզ հետ", f_ship: "Առաքում և վերադարձ", f_faq: "ՀՏՀ", f_care_guide: "Խնամքի ուղեցույց", f_appt: "Գրանցվել հանդիպման",
-    f_copy: "© 2026 Lumière Joaillerie: Բոլոր իրավունքները պաշտպանված են:",
-    f_privacy: "Գաղտնիության քաղաքականություն", f_terms: "Օգտագործման պայմաններ", f_cookies: "Cookie կարգավորումներ"
+    craft_label: "Արվեստանոց", craft_t1: "Դանդաղ պատրաստված:", craft_t2: "Միշտ մտադրված:",
+    craft_d1: "Մեր փարիզյան արվեստանոցում վարպետները ներդնում են դարավոր հմտություն յուրաքանչյուր ստեղծագործության մեջ: Յուրաքանչյուր քար ընտրվում է ձեռքով: Յուրաքանչյուր դրվագ կատարելագործվում է:",
+    craft_d2: "Մենք հավատում ենք, որ շքեղությունը ավելցուկ չէ: Դա զիջումների բացակայությունն է: սքիզից մինչև վերջին փայլեցումը Lumière-ը գոյություն ունի ժառանգության և հրաշքի հատման կետում:",
+    quote: "«Յուրաքանչյուր քար հիշում է այն ձեռքը, որը ձևավորել է այն»", quote_author: "— Մարի Լորան, վարպետ-արհեստավոր",
+    s1_v: "140+", s1_l: "արվա արհեստ", s2_v: "24", s2_l: "արպետներ", s3_v: "", s3_l: "Ուշադրություն մանրուքներին",
+    nl_label: "Նամակագրություն", nl_title: "Մնացեք տեղյակ:",
+    nl_desc: "Մասնավոր հրավերներ: Վաղ հասանելիություն: Պատմություններ արվեստանոցից: Առանց աղմուկի:",
+    nl_ph: "եր էլ. հասցեն", nl_btn: "Բաժանորդագրվել", nl_ok: "Մերսի՝ բարի գալուստ Lumière:",
+    f_addr: "ամանակակից զարդեր, ստեղծված Փարիզում: Կրվում են ամբողջ աշխարհում:",
+    f_shop: "Խանութ", f_maison: "Տուն", f_care: "Սպասարկում",
+    f_rings: "Մատանիներ", f_earrings: "Ականջօղեր", f_necklaces: "Վզնոցներ", f_bracelets: "Ապարանջաններ", f_new: "Նորություններ",
+    f_story: "Պատմություն", f_atelier: "Արվեստանոց", f_sust: "Կայունություն", f_careers: "Կարիերա", f_press: "Մամուլ",
+    f_contact: "Կապ", f_ship: "Առաքում", f_faq: "ՀՀ", f_care_guide: "Խնամք", f_appt: "րանցում",
+    f_copy: "© 2026 Lumière: Բոլոր իրավունքները պաշտպանված են:",
+    f_privacy: "Գաղտնիություն", f_terms: "Պայմաններ", f_cookies: "Cookies",
+    f_made: "Ստեղծված արիզում · Պատրաստված մտադրությամբ"
   }
 };
 
@@ -649,7 +687,14 @@ function setLang(lang) {
   const d = dict[lang];
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const k = el.getAttribute('data-i18n');
-    if (d[k]) el.textContent = d[k];
+    if (d[k]) {
+      if (el.tagName === 'BR' || !k.includes('_')) return;
+      if (d[k].includes('<br>')) {
+        el.innerHTML = d[k];
+      } else {
+        el.textContent = d[k];
+      }
+    }
   });
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const k = el.getAttribute('data-i18n-placeholder');
@@ -686,9 +731,9 @@ const obs = new IntersectionObserver((entries) => {
       obs.unobserve(e.target);
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => obs.observe(el));
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 let bagCount = 0;
 const bagBadge = document.getElementById('bagCount');
@@ -699,13 +744,12 @@ document.querySelectorAll('.add-bag').forEach(btn => {
     bagBadge.textContent = bagCount;
     bagBadge.style.opacity = '1';
     const cur = dict[document.documentElement.lang]?.added || 'Added';
+    const orig = dict[document.documentElement.lang]?.add_bag || 'Add to Bag';
     btn.textContent = cur;
-    btn.style.color = 'var(--ruby)';
-    btn.style.borderColor = 'var(--ruby)';
+    btn.style.background = 'var(--ruby)';
     setTimeout(() => {
-      btn.textContent = dict[document.documentElement.lang]?.add_bag || 'Add to Bag';
-      btn.style.color = '';
-      btn.style.borderColor = '';
+      btn.textContent = orig;
+      btn.style.background = '';
     }, 1800);
   });
 });
@@ -721,6 +765,8 @@ nlForm.addEventListener('submit', (e) => {
 </script>
 </body>
 </html>
+
+
 
 
 
